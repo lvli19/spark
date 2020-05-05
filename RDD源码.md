@@ -43,6 +43,17 @@ Some notes on reading files with Spark:
 ### 创建RDD的两个方式
 * parallel collections
 * External Datasets
- 
+
+## 开发pyspark应用程序
+* IDE：IDEA pycharm
+* 设置基本参数： python interceptor PYTHONPATH SPARK_HOME 2zip包
+* 开发
+* 使用local进行本地化测试
+
+## 提交pyspark应用程序
+./spark-submit --master local[2] --name spark0301 /home/hadoop/script/spark0301.py
+
+
+
  
 
