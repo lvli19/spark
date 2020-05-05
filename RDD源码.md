@@ -15,5 +15,34 @@
 # RDD五大特性的源码体现
 
 ```
-  def compute(split: Partition, context: TaskContext): Iterator[T]
+def compute(split: Partition, context: TaskContext): Iterator[T] //特性二，计算
+  
+protected def getPartitions: Array[Partition] //特性一，一堆的partitions
+  
+protected def getDependencies: Seq[Dependency[_]] = deps //特性三，依赖关系
+
+protected def getPreferredLocations(split: Partition): Seq[String] = Nil //特性五，优先位置
+
+@transient val partitioner: Option[Partitioner] = None
 ```
+## SparkContext SparkConf ##  
+首先需要创建 SparkContext
+ 链接到Spark集群-----local standalone yarn mesos
+ 通过SparkContext来创建RDD，广播变量到集群
+
+在创建SparkContext之前还需要创建SparkConf对象
+
+Some notes on reading files with Spark:
+
+* If using a path on the local filesystem, the file must also be accessible at the same path on worker nodes. Either copy the file to all workers or use a __network-mounted shared file system.__ 
+
+* All of Spark’s file-based input methods, including textFile, support running on directories, compressed files, and wildcards as well. For example, you can use textFile("/my/directory"), textFile("/my/directory/*.txt"), and textFile("/my/directory/*.gz").
+
+* The textFile method also takes an optional second argument for controlling the number of partitions of the file. By default, Spark creates one partition for each block of the file (blocks being 128MB by default in HDFS), but you can also ask for a higher number of partitions by passing a larger value. Note that you cannot have fewer partitions than blocks.
+
+### 创建RDD的两个方式
+* parallel collections
+* External Datasets
+ 
+ 
+
