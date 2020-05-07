@@ -49,9 +49,9 @@ Linux crontab +shell
 
 ## Azkaban概述
 
-### Open-source Workflow Manager
-### 批处理工作流，用于跑hadoop的job
-### 提供了一个易于使用的用户界面来维护和跟踪你的工作流程
+* Open-source Workflow Manager
+* 批处理工作流，用于跑hadoop的job
+* 提供了一个易于使用的用户界面来维护和跟踪你的工作流程
 
 插入图片 https://azkaban.github.io/
 
@@ -68,4 +68,27 @@ Linux crontab +shell
 * Email alerts on failure and successes email告警
 * SLA alerting and auto killing SLA告警和自动杀掉
 * Retrying of failed jobs  失败作业的重试
+
+### Azkaban的架构
+* 1、Relational Database(Mysql)
+azkaban将大多数状态信息都存于MySQL中,Azkaban Web Server 和 Azkaban Executor Server也需要访问DB。
+* 2、Azkaban Web Server
+提供了Web UI，是azkaban的主要管理者，包括 project 的管理，认证，调度，对工作流执行过程的监控等。
+
+* 3、Azkaban Executor Server
+
+调度工作流和任务，纪录工作流活任务的日志，之所以将AzkabanWebServer和AzkabanExecutorServer分开，主要是因为在某个任务流失败后，可以更方便的将重新执行。而且也更有利于Azkaban系统的升级
+
+
+### azkaban的工作模式
+
+* the stand alone “solo-server” mode 
+     信息存储在H2 ===>mysql
+     webserver和execserver是运行在一个进程中
+* distributed multiple-executor mode. 
+   存储在MySQL中
+   运行在不同的hosts中
+   
+   
+
 
